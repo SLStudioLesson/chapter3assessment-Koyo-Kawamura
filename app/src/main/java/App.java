@@ -13,8 +13,31 @@ public class App {
             System.out.println("1. CSV");
             System.out.println("2. JSON");
             System.out.print("Select (1/2): ");
+
+            // ユーザーからの入力を読み込む
             String choice = reader.readLine();
-            
+            // 選択されたデータハンドラーを格納する変数
+            DataHandler dataHandler;
+
+            switch (choice) {
+                case "1":
+                    // CSVデータハンドラーのインスタンスを生成
+                    dataHandler = new CSVDataHandler();
+                    break;
+                case "2":
+                    // JSONデータハンドラーのインスタンスを生成
+                    dataHandler = new JSONDataHandler();
+                    break;
+                // 不正な入力の場合、デフォルトでCSVデータハンドラーを生成
+                default:
+                    dataHandler = new CSVDataHandler();
+                    break;
+            }
+
+            // 生成されたインスタンスを渡す
+            RecipeUI ui = new RecipeUI(dataHandler);
+            // メニューを表示する
+            ui.displayMenu();
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
